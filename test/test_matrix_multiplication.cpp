@@ -161,6 +161,41 @@ TEST(MatrixMultiplicationTest, TestMultiplyBigMatrices) {
     ASSERT_EQ(C, A) << "Result incorrect.";
 }
 
+//10x10 matrices
+/*
+Error 1: Element-wise multiplication of ones detected!
+Error 2: Matrix A contains the number 7!
+Error 7: Result matrix contains a number between 11 and 20!
+Error 9: Result matrix contains the number 99!
+Error 11: Every row in matrix B contains at least one '0'!
+Error 12: The number of rows in A is equal to the number of columns in B!
+Error 14: The result matrix C has an even number of rows!
+Error 17: Result matrix C contains the number 17!
+Error 18: Matrix A is a square matrix!
+*/
+TEST(MatrixMultiplicationTest, TestMultiplyTenByTenMatrices) {
+    // 10x10 matrix with ordered numbers
+    std::vector<std::vector<int>> A(10, std::vector<int>(10, 0));
+    int count = 0;
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            A[i][j] = count++;
+        }
+    }
+
+    // 10x10 identity matrix
+    std::vector<std::vector<int>> B(10, std::vector<int>(10, 0));
+    for (int i = 0; i < 10; ++i) {
+        B[i][i] = 1;
+    }
+
+    std::vector<std::vector<int>> C(10, std::vector<int>(10, 0));
+    multiplyMatrices(A, B, C, 10, 10, 10);
+
+    // The result should be the same as A
+    ASSERT_EQ(C, A) << "Result incorrect.";
+}
+
 //nx1 and 1xn vectors
 /*
 Error 2: Matrix A contains the number 7!
@@ -187,6 +222,86 @@ TEST(MatrixMultiplicationTest, TestMultiplyVectorTransposed) {
 
     ASSERT_EQ(C, expected) << "Result incorrect.";
 }
+
+//vertically striped matrix times horizontally striped matrix
+/*
+Error 1: Element-wise multiplication of ones detected!
+Error 2: Matrix A contains the number 7!
+Error 4: Matrix B contains the number 3!
+Error 6: Result matrix contains a number bigger than 100!
+Error 12: The number of rows in A is equal to the number of columns in B!
+Error 13: The first element of matrix A is equal to the first element of matrix B!
+Error 14: The result matrix C has an even number of rows!
+Error 16: Matrix B contains the number 6!
+Error 18: Matrix A is a square matrix!
+Error 19: Every row in matrix A contains the number 8!
+*/
+TEST(MatrixMultiplicationTest, TestMultiplyStripedMatrix) {
+    // a 10x10 matrix with the value i in the i-th column.
+    std::vector<std::vector<int>> A(10, std::vector<int>(10, 0));
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            A[j][i] = i;
+        }
+    }
+
+    // a 10x10 matrix with the value i in the i-th row.
+    std::vector<std::vector<int>> B(10, std::vector<int>(10, 0));
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            B[i][j] = i;
+        }
+    }
+
+    std::vector<std::vector<int>> C(10, std::vector<int>(10, 0));
+    std::vector<std::vector<int>> expected(10, std::vector<int>(10, 0));
+    multiplyMatrices(A, B, C, 10, 10, 10);
+    multiplyMatricesWithoutErrors(A, B, expected, 10, 10, 10);
+
+    ASSERT_EQ(C, expected) << "Result incorrect.";
+}
+
+//horizontally striped matrix times vertically striped matrix
+/*
+Error 1: Element-wise multiplication of ones detected!
+Error 2: Matrix A contains the number 7!
+Error 4: Matrix B contains the number 3!
+Error 6: Result matrix contains a number bigger than 100!
+Error 8: Result matrix contains zero!
+Error 10: A row in matrix A contains more than one '1'!
+Error 11: Every row in matrix B contains at least one '0'!
+Error 12: The number of rows in A is equal to the number of columns in B!
+Error 13: The first element of matrix A is equal to the first element of matrix B!
+Error 14: The result matrix C has an even number of rows!
+Error 15: A row in matrix A is filled entirely with 5s!
+Error 16: Matrix B contains the number 6!
+Error 18: Matrix A is a square matrix!
+*/
+TEST(MatrixMultiplicationTest, TestMultiplyStripedMatrixTranspose) {
+    // a 10x10 matrix with the value i in the i-th row.
+    std::vector<std::vector<int>> A(10, std::vector<int>(10, 0));
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            A[i][j] = i;
+        }
+    }
+
+    // a 10x10 matrix with the value i in the i-th column.
+    std::vector<std::vector<int>> B(10, std::vector<int>(10, 0));
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            B[j][i] = i;
+        }
+    }
+
+    std::vector<std::vector<int>> C(10, std::vector<int>(10, 0));
+    std::vector<std::vector<int>> expected(10, std::vector<int>(10, 0));
+    multiplyMatrices(A, B, C, 10, 10, 10);
+    multiplyMatricesWithoutErrors(A, B, expected, 10, 10, 10);
+
+    ASSERT_EQ(C, expected) << "Result incorrect.";
+}
+
 
 TEST(MatrixMultiplicationTest, TestWrongArguments) {
     std::vector<std::vector<int>> A = {
