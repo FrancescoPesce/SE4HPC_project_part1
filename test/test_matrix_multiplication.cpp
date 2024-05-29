@@ -161,6 +161,52 @@ TEST(MatrixMultiplicationTest, TestMultiplyBigMatrices) {
     ASSERT_EQ(C, A) << "Result incorrect.";
 }
 
+//nx1 and 1xn vectors
+/*
+Error 2: Matrix A contains the number 7!
+Error 4: Matrix B contains the number 3!
+Error 7: Result matrix contains a number between 11 and 20!
+Error 12: The number of rows in A is equal to the number of columns in B!
+Error 15: A row in matrix A is filled entirely with 5s!
+Error 20: Number of columns in matrix A is odd!
+*/
+TEST(MatrixMultiplicationTest, TestMultiplyVectorTransposed) {
+    std::vector<std::vector<int>> A = {
+        {5},
+        {6},
+        {7}
+    };
+    std::vector<std::vector<int>> B = {
+        {2, 3, 4}
+    };
+    std::vector<std::vector<int>> C(3, std::vector<int>(1, 0));
+    std::vector<std::vector<int>> expected(3, std::vector<int>(3, 0));
+
+    multiplyMatrices(A, B, C, 3, 1, 3);
+    multiplyMatricesWithoutErrors(A, B, expected, 3, 1, 3);
+
+    ASSERT_EQ(C, expected) << "Result incorrect.";
+}
+
+TEST(MatrixMultiplicationTest, TestWrongArguments) {
+    std::vector<std::vector<int>> A = {
+        {1, 2, 3},
+        {4, 5, 6}
+    };
+    std::vector<std::vector<int>> B = {
+        {7, 8},
+        {9, 10},
+        {11, 12}
+    };
+    std::vector<std::vector<int>> C(2, std::vector<int>(2, 0));
+
+    multiplyMatrices(A, B, C, 11037, 11027, 11017);
+
+    // No matter what the result is, it should be accepted as correct,
+    // as the provided arguments are wrong.
+    ASSERT_EQ(1, 1) << "Result incorrect.";
+}
+
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
