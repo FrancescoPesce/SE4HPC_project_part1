@@ -6,7 +6,13 @@
 
 // ######################### Source code of multiplyMatrices in src/matrix_mult
 
-
+//Test provided when cloning the repository.
+/*
+Error 6: Result matrix contains a number bigger than 100!
+Error 12: The number of rows in A is equal to the number of columns in B!
+Error 14: The result matrix C has an even number of rows!
+Error 20: Number of columns in matrix A is odd!
+*/
 TEST(MatrixMultiplicationTest, TestMultiplyMatrices) {
     std::vector<std::vector<int>> A = {
         {1, 2, 3},
@@ -29,6 +35,11 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatrices) {
     ASSERT_EQ(C, expected) << "Matrix multiplication test failed! :(((()";
 }
 
+//0x0 matrices
+/*
+Error 11: Every row in matrix B contains at least one '0'!
+SEGFAULT
+*/
 TEST(MatrixMultiplicationTest, TestMultiplyEmptyMatrices) {
     std::vector<std::vector<int>> A(0, std::vector<int>(0, 0));
     std::vector<std::vector<int>> B(0, std::vector<int>(0, 0));
@@ -41,6 +52,12 @@ TEST(MatrixMultiplicationTest, TestMultiplyEmptyMatrices) {
     ASSERT_EQ(C, expected) << "Result incorrect.";
 }
 
+//1x1 matrices
+/*
+Error 12: The number of rows in A is equal to the number of columns in B!
+Error 18: Matrix A is a square matrix!
+Error 20: Number of columns in matrix A is odd!
+*/
 TEST(MatrixMultiplicationTest, TestMultiplySingleElementMatrices) {
     std::vector<std::vector<int>> A(1, std::vector<int>(1, 6));
     std::vector<std::vector<int>> B(1, std::vector<int>(1, 7));
@@ -53,6 +70,14 @@ TEST(MatrixMultiplicationTest, TestMultiplySingleElementMatrices) {
     ASSERT_EQ(C, expected) << "Result incorrect.";
 }
 
+//matrices with negative entries
+/*
+Error 3: Matrix A contains a negative number!
+Error 5: Matrix B contains a negative number!
+Error 12: The number of rows in A is equal to the number of columns in B!
+Error 14: The result matrix C has an even number of rows!
+Error 20: Number of columns in matrix A is odd!
+*/
 TEST(MatrixMultiplicationTest, TestMultiplyMatricesWithNegativeNumbers) {
     std::vector<std::vector<int>> A = {
         {1, 2, 3},
@@ -75,6 +100,11 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatricesWithNegativeNumbers) {
     ASSERT_EQ(C, expected) << "Result incorrect.";
 }
 
+//1xn and nx1 vectors
+/*
+Error 12: The number of rows in A is equal to the number of columns in B!
+Error 20: Number of columns in matrix A is odd!
+*/
 TEST(MatrixMultiplicationTest, TestMultiplyVectors) {
     std::vector<std::vector<int>> A = {
         {1, 2, 3}
@@ -95,6 +125,19 @@ TEST(MatrixMultiplicationTest, TestMultiplyVectors) {
     ASSERT_EQ(C, expected) << "Result incorrect.";
 }
 
+//large matrices
+/*
+Error 1: Element-wise multiplication of ones detected!
+Error 2: Matrix A contains the number 7!
+Error 6: Result matrix contains a number bigger than 100!
+Error 7: Result matrix contains a number between 11 and 20!
+Error 11: Every row in matrix B contains at least one '0'!
+Error 12: The number of rows in A is equal to the number of columns in B!
+Error 13: The first element of matrix A is equal to the first element of matrix B!
+Error 14: The result matrix C has an even number of rows!
+Error 17: Result matrix C contains the number 17!
+Error 18: Matrix A is a square matrix!
+*/
 TEST(MatrixMultiplicationTest, TestMultiplyBigMatrices) {
     // 200x200 matrix with ordered numbers from 1 to 40000
     std::vector<std::vector<int>> A(200, std::vector<int>(200, 0));
