@@ -131,7 +131,7 @@ TEST(MatrixMultiplicationTest, TestMultiplyVectorsTransposed) {
         {2, 3, 4}
     };
     
-    std::vector<std::vector<int>> C(3, std::vector<int>(1, 0));
+    std::vector<std::vector<int>> C(3, std::vector<int>(3, 0));
     std::vector<std::vector<int>> expected(3, std::vector<int>(3, 0));
 
     multiplyMatrices(A, B, C, 3, 1, 3);
@@ -242,7 +242,7 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatricesWithNegativeNumbers) {
     std::vector<std::vector<int>> expected(2, std::vector<int>(2, 0));
 
     multiplyMatrices(A, B, C, 2, 3, 2);
-    multiplyMatricesWithoutErrors(A, B, expected, 10, 10, 10);
+    multiplyMatricesWithoutErrors(A, B, expected, 2, 3, 2);
 
     ASSERT_EQ(C, expected) << "Result incorrect.";
 }
