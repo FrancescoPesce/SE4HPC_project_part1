@@ -39,12 +39,15 @@ TEST(MatrixMultiplicationTest, TestMultiplyMatrices) {
 /*
 For ease of testing, we included the reference implementation of matrix multiplication without errors 
 (matrix_multiplication_without_errors.h and matrix_mult.cpp) and used it in our tests.
-We reported the errors we found in the log file in this document, with an explanation of our reasoning
+We reported the errors we found in the log file in this file, with an explanation of our reasoning
 for including certain tests and an explanation of seemingly unintended bugs.
-Since no documentation for the function was given, we assumed that, as long as the two provided
-matrices have the correct dimensions for multiplication, the provided vector lengths match with the
-actual lengths of the vectors, and the objects have been initialized, the function should return the
-product of the two input matrices.
+Since no documentation for the function was given, we assumed the following requirements.
+The function requires that:
+- the two provided matrices have the correct dimensions for multiplication
+- the provided lengths match with the actual lengths of the vectors
+- all vectors have been initialized
+The function ensures that:
+- C contains the matrix product of A and B.
 In the case where the inputs are not valid, we did not assume any particular behaviour from the
 function, but we still tested whether the function displays warnings or raises exceptions.
 */
@@ -354,7 +357,6 @@ Errors found:
 -Error 1: Element-wise multiplication of ones detected!
 -Error 4: Matrix B contains the number 3!
 -Error 7: Result matrix contains a number between 11 and 20!
--Error 4: Matrix B contains the number 3!
 -Error 12: The number of rows in A is equal to the number of columns in B!
 -Error 13: The first element of matrix A is equal to the first element of matrix B!
 -Error 14: The result matrix C has an even number of rows!
@@ -384,7 +386,7 @@ TEST(MatrixMultiplicationTest, TestMultiplySameObject) {
 // Since the inputs are redundant (the vectors already have a field containg their length), we tested 
 // the case where the size parameters given to the function do not match with the actual sizes of 
 // the matrices. While in this case the input is ill-formed, so any behaviour from the function is 
-// acceptable, some behaviours (e.g. printing an error or raising an exception) are to be prefered 
+// acceptable, some behaviours (e.g. printing an error or raising an exception) are to be preferred 
 // from a software engineering point of view to others (e.g. causing a SEGFAULT error).
 
 /*
