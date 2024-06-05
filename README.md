@@ -3,4 +3,4 @@ Repository for the first part of the second project of SE4HPC by Miotti Michele 
 
 ## Contents
 - The file `test/test_matrix_multiplication.cpp` contains our tests for the matrix multiplication function. It also contains a list of the errors we found, a brief description of the tests and their reason for being introduced.
-- We made minor changed to the rest of the repository to be able to use the file `src/matrix_mult.cpp` in the tests.
+- We made minor changes to the rest of the repository to be able to use the file `src/matrix_mult.cpp` in the tests.
